@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <SearchBar />
+    <SearchBar @input="onSearch" />
     <Card
-      v-for="item in data"
+      v-for="item in filteredData"
       :content="item.content"
       :twitterUrl="item.twitterUrl"
       :youtubeUrl="item.youtubeUrl"
@@ -19,9 +19,32 @@ export default {
     SearchBar,
     Card
   },
+  data() {
+    return {
+      searchTerm: ''
+    }
+  },
+  computed: {
+    filteredData() {
+      if (this.searchTerm) {
+        return this.data.filter((item) => {
+          return item.content
+            .toLowerCase()
+            .trim()
+            .includes(this.searchTerm.toLowerCase().trim())
+        })
+      }
+      return this.data
+    }
+  },
   async asyncData({ $axios }) {
     const response = await $axios.get('https://api.myjson.com/bins/1d7hcy')
     return { data: response.data }
+  },
+  methods: {
+    onSearch(value) {
+      this.searchTerm = value
+    }
   }
 }
 </script>

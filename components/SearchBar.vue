@@ -1,8 +1,18 @@
 <template>
   <div class="searchbar__wrapper">
-    <input type="text" class="searchbar__input" />
+    <input @input="onInput" type="text" class="searchbar__input" />
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    onInput(event) {
+      this.$emit('input', event.target.value)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .searchbar__wrapper {
