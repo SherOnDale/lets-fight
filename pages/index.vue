@@ -37,8 +37,21 @@ export default {
       return this.data
     }
   },
-  async asyncData({ $axios }) {
-    const response = await $axios.get('https://api.myjson.com/bins/1d7hcy')
+  asyncData({ $axios }) {
+    // const response = await $axios.get('https://api.myjson.com/bins/1d7hcy')
+    const response = {}
+    response.data = [
+      {
+        content: 'TEst one',
+        twitterUrl: 'url one',
+        youtubeUrl: 'url two'
+      },
+      {
+        content: 'TEst one',
+        twitterUrl: 'url one',
+        youtubeUrl: 'url two'
+      }
+    ]
     return { data: response.data }
   },
   methods: {
